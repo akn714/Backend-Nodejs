@@ -28,3 +28,6 @@
             * use ```app.delete('/users')``` instead of ```app.get('/deleteusers')```
         * 4. response should always be in JSON formate
         * 5. API should be stateless
+* lecture 10:
+    * mounting in express
+    * express.Router() - used to make mini app
