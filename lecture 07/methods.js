@@ -17,8 +17,29 @@ app.get('/users', (req, res)=>{
 app.post('/users', (req, res)=>{
     // res.send(users);
     console.log(req.body)
+    users = req.body
     res.json({
-        "res":"data received sucessfully"
+        "res":"data received successfully",
+        "user":req.body.name
+    })
+})
+
+app.patch('/users', (req, res)=>{
+    console.log('req.body -> ', req.body)
+    for(key in req.body){
+        users[key] = req.body[key]
+    }
+    res.json({
+        "res":'data updated successfully',
+        "users":users
+    })
+})
+
+app.delete('/users', (req, res)=>{
+    users = {}
+    res.json({
+        "res":'data delete successfully',
+        "users":users
     })
 })
 
