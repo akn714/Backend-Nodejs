@@ -31,3 +31,5 @@
 * lecture 10:
     * mounting in express
     * express.Router() - used to make mini app
+* lecture 11:
+    * creating post request from frontend to backend using axios

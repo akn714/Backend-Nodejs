@@ -8,20 +8,33 @@ app.get('/', (req, res)=>{
     res.send('this is home page')
 })
 
+// mini apps
 const userRouter = express.Router();
+const authRouter = express.Router();
+
+// base routes
 app.use('/user', userRouter)    // base route - '/user'
+app.use('/auth', authRouter)
+
+const userRouterFunctions = require('./user router functions')
 
 userRouter
 .route('/')     // this means the route is '/user/'
-.get(getUser)
-.post(postUser)
-.patch(updateUser)
-.delete(deleteUser)
+.get(userRouterFunctions.getUser)
+.post(userRouterFunctions.postUser)
+.patch(userRouterFunctions.updateUser)
+.delete(userRouterFunctions.deleteUser)
 
 userRouter
 .route('/:id')  // this means the route is '/user/:id'
-.get(getUserById)
+.get(userRouterFunctions.getUserById)
 
+const authRouterFunctions = require('./auth router functions')
+
+authRouter
+.route('/signup')
+.get(authRouterFunctions.getSignUp)
+.post(authRouterFunctions.postSignUp)
 
 let users = [
     {
@@ -37,53 +50,6 @@ let users = [
         "name":"pqr"
     }
 ];
-
-function getUser(req, res){
-    res.send(users);
-}
-
-function postUser(req, res){
-    // res.send(users);
-    console.log(req.body)
-    users = req.body
-    res.json({
-        "res":"data received successfully",
-        "user":req.body.name
-    })
-}
-
-function updateUser(req, res){
-    console.log('req.body -> ', req.body)
-    for(key in req.body){
-        users[key] = req.body[key]
-    }
-    res.json({
-        "res":'data updated successfully',
-        "users":users
-    })
-}
-
-function deleteUser(req, res){
-    users = {}
-    res.json({
-        "res":'data delete successfully',
-        "users":users
-    })
-}
-
-function getUserById(req, res){
-    console.log(req.params.id)
-    console.log(req.params)
-    let obj = {}
-    for(let i=0;i<users.length;i++){
-        if(users[i].id==req.params.id){
-            obj = users[i]
-        }
-    }
-    res.json({
-        "user":obj
-    })
-}
 
 app.listen(3000, ()=>{
     console.log('server listening on port 3000')
