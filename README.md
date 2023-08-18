@@ -63,4 +63,10 @@
     * mongoDB Atlas
     * schema
     * model
-    * creating a new document in mongoDB Atlas usin ```model.create()```
+    * creating a new document in mongoDB Atlas usin ```modelname.create()```
+* lecture 15:
+    * CURD operations in MongoDB (https://mongoosejs.com/docs/queries.html)
+        * C - create: ```modelname.create()```
+        * R - read: ```modelname.find()```, ```modelname.findOne()```, etc.
+        * U - update: ```modelname.findOneAndUpdate()```
+        * D - delete: ```modelname.findOneAndDelete()```
