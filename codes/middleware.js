@@ -33,12 +33,22 @@ const authRouterFunctions = require('./auth router functions')
 
 authRouter
 .route('/signup')
-.get(middleware, authRouterFunctions.getSignUp)
+.get(middleware1, getSignUp, middleware2)
 .post(authRouterFunctions.postSignUp)
 
-function middleware(req, res, next){
-    console.log('middleware encountered');
+function getSignUp(req, res, next){
+    console.log('getting signup page')
+    // res.sendFile(__dirname+'/public/index.html')
+    next()
+}
+
+function middleware1(req, res, next){
+    console.log('middleware1 encountered');
     next();
+}
+function middleware2(req, res, next){
+    console.log('middleware2 encountered');
+    res.sendFile(__dirname+'/public/index.html')
 }
 
 let users = [
