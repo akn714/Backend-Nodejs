@@ -59,3 +59,8 @@
             * unable to do complex transactions
             * can not maintain ACID properties (atomicity, consistency, isolation, and durabilityh)
             * not used in banking systems
+* lecture 14:
+    * mongoDB Atlas
+    * schema
+    * model
+    * creating a new document in mongoDB Atlas usin ```model.create()```
