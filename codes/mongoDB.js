@@ -71,8 +71,11 @@ app.listen(3000, ()=>{
     console.log('server listening on port 3000')
 })
 
+const dotenv = require('dotenv')
+dotenv.config()
+
 // connecting to db
-const db_link = 'mongodb+srv://admin:BackendNodejs00@cluster0.5enyuy9.mongodb.net/';
+const db_link = process.env.DB_LINK;
 mongoose.connect(db_link)
 .then((db)=>{
     console.log(db)
@@ -110,8 +113,8 @@ const userModel = mongoose.model('userModel', userSchema);
 
 (async function createUser(){
     let user = {
-        name:"mario",
-        email:"mario@cartoon.com",
+        name:"mario2",
+        email:"mario2@cartoon.com",
         password:"abcd1234",
         confirmPassword:"abcd1234"
     }
