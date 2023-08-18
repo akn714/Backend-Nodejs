@@ -33,3 +33,17 @@
     * express.Router() - used to make mini app
 * lecture 11:
     * creating post request from frontend to backend using axios
+* lecture 12:
+    * middleware -
+        * works between getting request and sending response
+        * runs in a sequence
+        * global middleware - app.use()
+        * specific middleware - app.get(), app.post(), etc.
+        * ex.
+        ```js
+            function(req, res, next){
+                ...
+                next();
+            }
+        ```
+    * ending the request and response cycle in middleware

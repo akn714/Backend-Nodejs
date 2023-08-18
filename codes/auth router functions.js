@@ -1,4 +1,5 @@
 function getSignUp(req, res){
+    console.log('getting signup page')
     res.sendFile(__dirname+'/public/index.html')
 }
 
