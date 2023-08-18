@@ -47,3 +47,15 @@
             }
         ```
     * ending the request and response cycle in middleware
+* lecture 13:
+    * mongoDB:
+        * pros
+            * open source
+            * load balancing
+            * sharding
+            * flexible
+            * scalable
+        * cons:
+            * unable to do complex transactions
+            * can not maintain ACID properties (atomicity, consistency, isolation, and durabilityh)
+            * not used in banking systems
