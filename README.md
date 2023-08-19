@@ -109,3 +109,24 @@
         password to be hashed - a12b3c4 ( abc + 1234 )
         hashed password (abc1234) - o03be7ye8
     * bcrypt ( 3rd party npm library )
+#### lecture 18:
+* cookies -
+    * used to store data in users browser
+    * this will be sent in every req object from browser
+    * value of 'expires' key is by default 'session'
+    * if key 'expires' is set to 'session' in browsers inspect->applicatoin->cookies it means that the cookie will not expire until the tab is closed
+    * cookie-parser( 3rd party npm library )
+    * maxAge property is in miliseconds
+    ```js
+    res.cookie('isLoggedIn', true, {maxAge:24*60*60*1000, secure:true, httpOnly:true});
+    // 1st parameter : cookie name
+    // 2nd parameter : cookie value
+    // 3rd parameter : params
+        // maxAge: it tell when the cookie will expire ( default to 'session' )
+        // secure: if true then we can access only through 'https' and not from 'http'
+        // we can access our cookie from frontend by using 'document.cookie'
+        // httpOnly: if this is set to true then we cannot access cookies from frontend it will be accessable to backend only
+    ```
+* cookie-parser ( 3rd party npm library )
+    * don't forget to put this line at top when working with cookies
+    * `app.use(require('cookie-parser'))`
