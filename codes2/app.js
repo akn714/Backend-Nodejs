@@ -64,48 +64,6 @@ function middleware2(req, res, next){
     res.sendFile(__dirname+'/public/index.html')
 }
 
-let users = [
-    {
-        "id":1,
-        "name":"abc"
-    },
-    {
-        "id":2,
-        "name":"xyz"
-    },
-    {
-        "id":3,
-        "name":"pqr"
-    }
-];
-
-app.listen(3000, ()=>{
-    console.log('[+] server listening on port 3000')
-})
-
-const dotenv = require('dotenv')
-dotenv.config()
-
-
-
-
-
-// (async function createUser(){
-//     let user = {
-//         name:"mario5",
-//         email:"mario5@cartoon.com",
-//         password:"abcd1234",
-//         confirmPassword:"abcd1234"
-//     }
-
-//     let data = await userModel.create(user);
-//     console.log(data)
-// })()
-
-
-
-
-
 // ####### CURD operations in MongoDB
 async function getUser(req, res){
     let users = await userModel.find()
@@ -122,3 +80,7 @@ async function updateUser(req, res){
         "users":users
     })
 }
+
+app.listen(3000, ()=>{
+    console.log('[+] server listening on port 3000')
+})
