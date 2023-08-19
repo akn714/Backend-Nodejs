@@ -74,9 +74,21 @@
     * Mongoose hooks - code which runs before saving or after saving the data in DB
         * pre-hooks - code runs before saving data
         ```js
-        // all pre hooks run before all post hooks even if they are written below post hooks    
+        // all pre hooks run before all post hooks even if they are written below post hooks
         userSchema.pre('save', function(){
             console.log('befor saving in database', this) // this will print data that has been sent to mongoDB to save in DB
+        })
+        ```
+        * note : if a hooks is of same type then they will run in a sequence ( top to bottom )
+        ```js
+        // first this hook will run ...
+        userSchema.pre('save', function(){
+            // do stuff
+        })
+
+        // ... then this hook will run
+        userSchema.pre('save', function(){
+            // do some more stuff
         })
         ```
         * post-hooks - code runs after saving data
@@ -86,5 +98,14 @@
         })
         ```
     * validation property in schema
-        * email-validator
+        * email-validator ( 3rd party npm library )
     * If a value of any field in document is ```undefined``` then mongoDB will not save that field
+* lecture 17:
+    * hashing
+        * salt or sected key: this is mixed with actual password string before hashing
+            * eg: 
+            actual password - 1234
+            salt - abc
+            password to be hashed - a12b3c4 ( abc + 1234 )
+            hashed password (abc1234) - o03be7ye8
+        * bcrypt ( 3rd party npm library )
