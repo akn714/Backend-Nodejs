@@ -70,3 +70,21 @@
         * R - read: ```modelname.find()```, ```modelname.findOne()```, etc.
         * U - update: ```modelname.findOneAndUpdate()```
         * D - delete: ```modelname.findOneAndDelete()```
+* lecture 16:
+    * Mongoose hooks - code which runs before saving or after saving the data in DB
+        * pre-hooks - code runs before saving data
+        ```js
+        // all pre hooks run before all post hooks even if they are written below post hooks    
+        userSchema.pre('save', function(){
+            console.log('befor saving in database', this) // this will print data that has been sent to mongoDB to save in DB
+        })
+        ```
+        * post-hooks - code runs after saving data
+        ```js
+        userSchema.post('save', function(doc){
+            console.log('after saving in database', doc)  // this will print the data that has been saved in DB
+        })
+        ```
+    * validation property in schema
+        * email-validator
+    * If a value of any field in document is ```undefined``` then mongoDB will not save that field
