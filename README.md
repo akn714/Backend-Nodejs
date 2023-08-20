@@ -130,3 +130,7 @@
 * cookie-parser ( 3rd party npm library )
     * don't forget to put this line at top when working with cookies
     * `app.use(require('cookie-parser'))`
+
+#### lecture 19:
+* creating login function
+* refactoring the code
