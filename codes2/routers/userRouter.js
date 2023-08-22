@@ -1,6 +1,7 @@
+const express = require('express')
 const userRouter = express.Router();
 const userRouterFunctions = require('../user router functions')
-const userModel = require('./models/userModel')
+const userModel = require('../models/userModel')
 
 // routes of miniapp - userRouter
 userRouter
