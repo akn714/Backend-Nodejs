@@ -1,5 +1,5 @@
 # Backend-Nodejs
-* link to Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBexcE_J
+YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBexcE_J
 ## Tracker
 #### lecture 00, lecture 01, lecture 02, lecture 03, lecture 04, lecture 05, lecture 06:
 * Basics
