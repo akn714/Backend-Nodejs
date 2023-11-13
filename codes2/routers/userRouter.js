@@ -27,7 +27,7 @@ userRouter
 
 
 async function getUser(req, res){
-    // let users = await userModel.find()
+    let users = await userModel.find()
     res.json({
         "msg":"all users fetched",
         "users":users
@@ -39,7 +39,7 @@ function setCookies(req, res){
 
     res.cookie('isLoggedIn', true, {maxAge:24*60*60*1000, secure:true, httpOnly:true});
     res.cookie('2ndcookie', true);
-    res.cookie('temp', true, {maxAge:4*1000, secure:true, httpOnly:true});
+    res.cookie('temp', true, {maxAge:10*1000, secure:true, httpOnly:true});
     console.log('[+] cookies has been set')
     res.send('cookies has been set')
 }
@@ -57,7 +57,7 @@ async function updateUser(req, res){
     let user = await userModel.findOneAndUpdate({'email':'mario@cartoon.com'}, {'name':'mario cartoon'});
     res.json({
         "res":'data updated successfully',
-        "users":users
+        "users":user
     })
 }
 

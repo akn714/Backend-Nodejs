@@ -17,7 +17,7 @@ function middleware1(req, res, next){
 }
 function middleware2(req, res, next){
     // console.log('[+] middleware2 encountered');
-    res.sendFile(__dirname+'/public/index.html')
+    res.sendFile(__dirname+'/../public/index.html')
 }
 
 function getSignUp(req, res, next){
