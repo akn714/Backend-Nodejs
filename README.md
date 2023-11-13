@@ -57,13 +57,13 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
         * scalable
     * cons:
         * unable to do complex transactions
-        * can not maintain ACID properties (atomicity, consistency, isolation, and durabilityh)
+        * can not maintain ACID properties (atomicity, consistency, isolation, and durability)
         * not used in banking systems
 #### lecture 14:
 * mongoDB Atlas
 * schema
 * model
-* creating a new document in mongoDB Atlas usin ```modelname.create()```
+* creating a new document in mongoDB Atlas using ```modelname.create()```
 #### lecture 15:
 * CURD operations in MongoDB (https://mongoosejs.com/docs/queries.html)
     * C - create: ```modelname.create()```
