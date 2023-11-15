@@ -3,6 +3,8 @@ const cookieParser = require('cookie-parser')
 
 const app = express()
 
+app.use(express.urlencoded())
+
 app.use(express.json())
 
 app.use(cookieParser())
@@ -36,7 +38,11 @@ const authRouter = require('./routers/authRouter')
 app.use('/user', userRouter)    // base route - '/user'
 app.use('/auth', authRouter)
 
-
+app.get('*', (req, res)=>{
+    res.send({
+        message: '404 url not found'
+    })
+})
 
 // routes of miniapp - authRouter
 

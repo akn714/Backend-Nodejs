@@ -61,7 +61,4 @@ async function updateUser(req, res){
     })
 }
 
-
-
-
 module.exports = userRouter

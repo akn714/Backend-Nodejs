@@ -56,15 +56,15 @@ userSchema.post('save', function(doc){
 })
 
 // hashing
-userSchema.pre('save', async function(){
-    const salt = await bcrypt.genSalt()
-    console.log('[+] salt:', salt)
-    const hashedPassword = await bcrypt.hash(this.password, salt)
-    console.log(`[+] ${hashedPassword} is hashed password for ${this.password}`)
+// userSchema.pre('save', async function(){
+//     const salt = await bcrypt.genSalt()
+//     console.log('[+] salt:', salt)
+//     const hashedPassword = await bcrypt.hash(this.password, salt)
+//     console.log(`[+] ${hashedPassword} is hashed password for ${this.password}`)
 
-    // saving hashed password
-    this.password = hashedPassword
-})
+//     // saving hashed password
+//     this.password = hashedPassword
+// })
 
 // model
 const userModel = mongoose.model('userModel', userSchema);
