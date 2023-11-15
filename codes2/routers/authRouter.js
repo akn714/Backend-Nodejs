@@ -12,6 +12,10 @@ authRouter
 .get(getLoginPage)
 .post(loginUser)
 
+authRouter
+.route('/logout')
+.get(logoutUser)
+
 function middleware1(req, res, next){
     // console.log('[+] middleware1 encountered');
     next();
@@ -92,6 +96,13 @@ async function loginUser(req, res){
             message: error.message
         })
     }
+}
+
+function logoutUser(req, res){
+    res.cookie('isLoggedIn', '', {expires: new Date(0), httpOnly: true, secure: true})
+    res.send({
+        'cookies': req.cookies
+    })
 }
 
 module.exports = authRouter

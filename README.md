@@ -11,6 +11,7 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 * `/auth/signup`, POST : registers a user in database
 * `/auth/login`, GET : returns a login page
 * `/auth/login`, POST : logs in a user based on his email and password 
+* `/auth/logout`, GET : logs out the user (removes isLoggedIn cookie)
 
 ## Tracker
 #### lecture 00, lecture 01, lecture 02, lecture 03, lecture 04, lecture 05, lecture 06:
