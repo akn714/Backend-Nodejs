@@ -1,5 +1,17 @@
 # Backend-Nodejs
 YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBexcE_J
+
+### Routes
+* `/`, GET : returns 'this is home page'
+* `/user`, GET, POST, PATCH, DELETE : returns all registered users
+* `/user/setCookies`, GET : sets cookies in browser (cookies names -> isLoggedIn, 2ndcookie, temp)  
+* `/user/getCookies`, GET : returns cookies set on browser
+* `/user/:id`, GET : returns a perticular user with _id=':id'
+* `/auth/signup`, GET : returns a signup page
+* `/auth/signup`, POST : registers a user in database
+* `/auth/login`, GET : returns a login page
+* `/auth/login`, POST : logs in a user based on his email and password 
+
 ## Tracker
 #### lecture 00, lecture 01, lecture 02, lecture 03, lecture 04, lecture 05, lecture 06:
 * Basics
