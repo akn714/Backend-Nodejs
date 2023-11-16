@@ -1,5 +1,6 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
+const log = require('./logger')
 
 const app = express()
 
@@ -9,7 +10,7 @@ app.use(express.json())
 
 app.use(cookieParser())
 
-app.get('/', (req, res)=>{
+app.get('/', log, (req, res)=>{
     res.send('this is home page')
 })
 
@@ -38,7 +39,7 @@ const authRouter = require('./routers/authRouter')
 app.use('/user', userRouter)    // base route - '/user'
 app.use('/auth', authRouter)
 
-app.get('*', (req, res)=>{
+app.get('*', log, (req, res)=>{
     res.send({
         message: '404 url not found'
     })
