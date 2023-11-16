@@ -152,3 +152,34 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 * protecting routes using middleware
     * checking if the user is logged-in in the middleware if the user is logged-in then dummy secret key will be shown to user, else the user will be redirected to login page
     * if the user is logged in then `next()` function will be called in middleware else the user will be redirected to `/auth/login` in the middleware itself
+
+### lecture 21:
+#### JWT : Json Web Tokens
+* Only backend contains a secret key
+* JWT consist of 3 things
+    * Header : Contains Encyption Algorithm
+    * Payload : Unique id (UID) ( we can set this ID )
+    * signature : Secret key + UID + Encryption Algorithm
+* JWT is present in frontend, The frontend sends the JWT to the backend at the time of user login
+* Backend receives the JWT and uses the Header and Payload from the JWT sent by the frontend and a Secret key which is present only on backend and creates a signature and sends the JWT back to the frontend which consists -> Header (previous) + Payload (previous) + Signature (created by backend)
+* Frontend receives the JWT sent by the backend after user logs in and stores that JWT in the browser
+* This JWT will be sent to the backend everytime a user request to access a route which is accessable to only logged in users
+* After user Logs in:
+    * Let's say user logged in and requests a url which is accessable to only logged in users, at this time frontend will send the JWT to the backend
+    * Backend will receive that JWT and use Header and Payload of JWT and it will use Secret key present in backend to create a signature
+    * If the newly created signature on the backend and the signature present in received JWT are same, it means that the user is authentic, then the backend will send the response to the user
+    * If the signatures doesn't match, it means that the user is not authentic or the user is not logged in, backend will respond with a message like 'You are not allowed to access this route'
+
+##### summary
+* Backend -> contains a Secret Key
+* Frontend -> contains JWT (Header, Payload, Signature (will be created by backend))
+* login request:
+    * Frontend sends JWT (Header, Payload, Signature (will be created afterwards))
+    * Backend receives JWT and creates a signature (Header+Payload+Secret key(present only on Backend))
+    * Backend attaches the created signature and send the JWT back to frontend
+    * Frontend stores the received JWT on browser
+* requests after login:
+    * Frontend sends JWT (Header, Payload, Signature(created by Backend))
+    * Backend uses JWT received by frontend and make a new signature
+    * Backend compares newly created signature and signature present in JWT and authenticate the user if both signatures are same
+* <i>you can see payload and header inside a token on [jwt.io](jwt.io)</i>

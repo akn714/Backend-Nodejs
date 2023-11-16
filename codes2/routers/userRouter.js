@@ -2,33 +2,36 @@ const express = require('express')
 const userRouter = express.Router();
 const userRouterFunctions = require('../user router functions')
 const userModel = require('../models/userModel')
+const jwt = require('jsonwebtoken')
+const log = require('../logger')
+const keys = require('../sescrets')
 
 // routes of miniapp - userRouter
 userRouter
 .route('/')     // this means the route is '/user/'
-.get(getUser)
-.post(userRouterFunctions.postUser)
-.patch(updateUser)
-.delete(userRouterFunctions.deleteUser)
+.get(log, getUser)
+.post(log, userRouterFunctions.postUser)
+.patch(log, updateUser)
+.delete(log, userRouterFunctions.deleteUser)
 
 // cookies
 userRouter
 .route('/setCookies')
-.get(setCookies)
+.get(log, setCookies)
 
 userRouter
 .route('/getCookies')
-.get(getCookies)
+.get(log, getCookies)
 
 
 userRouter
 .route('/protected_route')
-.get(protect_middleware, protected_route)
+.get(log, protect_middleware, protected_route)
 
 // this route should always present after all routes
 userRouter
 .route('/:id')  // this means the route is '/user/:id'
-.get(userRouterFunctions.getUserById)
+.get(log, userRouterFunctions.getUserById)
 
 
 async function getUser(req, res){
@@ -67,17 +70,20 @@ async function updateUser(req, res){
 
 function protect_middleware(req, res, next){
     try {
-        console.log(req.cookies)
-        try {
-            if(!req.cookies.isLoggedIn){
-                return res.redirect('/auth/login');
-            }
-        } catch (error) {
-            return res.send({
-                error: error
-            })
+        if(!req.cookies.login){
+            return res.redirect('/auth/login');
         }
-        next();
+        else{
+            let isVerified = jwt.verify(req.cookies.login, keys.JWT_KEY);
+            if(isVerified){
+                next();
+            }
+            else{
+                return res.json({
+                    message: 'User not verified'
+                })
+            }
+        }
     } catch (error) {
         res.status(500).send({
             error: error
@@ -89,7 +95,7 @@ function protected_route(req, res, next){
     try {
         res.send({
             message: 'only logged in users can view this key',
-            dummy_secret_key: 'iua7h32j5b6k283y421uh345'
+            dummy_secret_key: 'lol'
         })
     } catch (error) {
         res.status(500).send({

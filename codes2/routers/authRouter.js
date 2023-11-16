@@ -1,20 +1,23 @@
 const express = require('express')
 const authRouter = express.Router();
 const userModel = require('../models/userModel')
+const jwt = require('jsonwebtoken')
+const log = require('../logger')
+const keys = require('../sescrets')
 
 authRouter
 .route('/signup')
-.get(middleware1, getSignUp, middleware2)
-.post(postSignUp)
+.get(log, middleware1, getSignUp, middleware2)
+.post(log, postSignUp)
 
 authRouter
 .route('/login')
-.get(getLoginPage)
-.post(loginUser)
+.get(log, getLoginPage)
+.post(log, loginUser)
 
 authRouter
 .route('/logout')
-.get(logoutUser)
+.get(log, logoutUser)
 
 function middleware1(req, res, next){
     // console.log('[+] middleware1 encountered');
@@ -76,7 +79,10 @@ async function loginUser(req, res){
             // bcrpyt -> compare
             if(user.password==data.password){
                 // setting isLoggedIn cookie true if the user is logged in
-                res.cookie('isLoggedIn', true, {maxAge:24*60*60*1000, secure:true, httpOnly:true});
+                // res.cookie('isLoggedIn', true, {maxAge:24*60*60*1000, secure:true, httpOnly:true});
+                let uid = user['_id'];
+                let token = jwt.sign({payload: uid}, keys.JWT_KEY);
+                res.cookie('login', token, {maxAge:24*60*60*1000, secure:true, httpOnly:true});
                 
                 return res.json({
                     message: 'User has logged in',
@@ -102,9 +108,9 @@ async function loginUser(req, res){
 }
 
 function logoutUser(req, res){
-    res.cookie('isLoggedIn', '', {expires: new Date(0), httpOnly: true, secure: true})
+    res.cookie('login', '', {expires: new Date(0), httpOnly: true, secure: true})
     res.send({
-        'cookies': req.cookies
+        message: 'User logged out'
     })
 }
 
