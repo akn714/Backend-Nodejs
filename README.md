@@ -147,3 +147,8 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 #### lecture 19:
 * creating login function
 * refactoring the code
+
+### lecture 20:
+* protecting routes using middleware
+    * checking if the user is logged-in in the middleware if the user is logged-in then dummy secret key will be shown to user, else the user will be redirected to login page
+    * if the user is logged in then `next()` function will be called in middleware else the user will be redirected to `/auth/login` in the middleware itself
