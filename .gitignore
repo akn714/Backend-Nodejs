@@ -3,3 +3,6 @@
 
 /codes2/node_modules/
 /codes2/.env
+
+/app/node_modules/
+/app/.env

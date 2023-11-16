@@ -183,3 +183,11 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
     * Backend uses JWT received by frontend and make a new signature
     * Backend compares newly created signature and signature present in JWT and authenticate the user if both signatures are same
 * <i>you can see payload and header inside a token on [jwt.io](jwt.io)</i>
+
+### lecture 22:
+<i>Note: will be working in `app` folder now onwards<i>
+#### MVC Architecture ( software architecture )
+* Model : stores and manages data
+* View : GUI related
+* Controller (Brain of Application) : connects Model and View
+
