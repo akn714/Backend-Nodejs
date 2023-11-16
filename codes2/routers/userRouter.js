@@ -20,10 +20,15 @@ userRouter
 .route('/getCookies')
 .get(getCookies)
 
+
+userRouter
+.route('/protected_route')
+.get(protect_middleware, protected_route)
+
+// this route should always present after all routes
 userRouter
 .route('/:id')  // this means the route is '/user/:id'
 .get(userRouterFunctions.getUserById)
-
 
 
 async function getUser(req, res){
@@ -37,8 +42,7 @@ async function getUser(req, res){
 function setCookies(req, res){
     // res.setHeader('Set-Cookie', 'isLoggedIn=true')
 
-    res.cookie('isLoggedIn', true, {maxAge:24*60*60*1000, secure:true, httpOnly:true});
-    res.cookie('2ndcookie', true);
+    res.cookie('1st cookie', true);
     res.cookie('temp', true, {maxAge:10*1000, secure:true, httpOnly:true});
     console.log('[+] cookies has been set')
     res.send('cookies has been set')
@@ -59,6 +63,39 @@ async function updateUser(req, res){
         "res":'data updated successfully',
         "users":user
     })
+}
+
+function protect_middleware(req, res, next){
+    try {
+        console.log(req.cookies)
+        try {
+            if(!req.cookies.isLoggedIn){
+                return res.redirect('/auth/login');
+            }
+        } catch (error) {
+            return res.send({
+                error: error
+            })
+        }
+        next();
+    } catch (error) {
+        res.status(500).send({
+            error: error
+        })
+    }
+}
+
+function protected_route(req, res, next){
+    try {
+        res.send({
+            message: 'only logged in users can view this key',
+            dummy_secret_key: 'iua7h32j5b6k283y421uh345'
+        })
+    } catch (error) {
+        res.status(500).send({
+            error: error
+        })
+    }
 }
 
 module.exports = userRouter

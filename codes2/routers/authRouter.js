@@ -75,6 +75,9 @@ async function loginUser(req, res){
         if(user){
             // bcrpyt -> compare
             if(user.password==data.password){
+                // setting isLoggedIn cookie true if the user is logged in
+                res.cookie('isLoggedIn', true, {maxAge:24*60*60*1000, secure:true, httpOnly:true});
+                
                 return res.json({
                     message: 'User has logged in',
                     userDetails: data

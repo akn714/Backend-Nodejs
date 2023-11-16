@@ -51,7 +51,12 @@ function deleteUser(req, res){
 async function getUserById(req, res){
     // console.log(req.params.id)
     // console.log(req.params)
-    let user = await userModel.findOne({'_id':req.params.id});
+    let user;
+    try {
+        user = await userModel.findOne({'_id':req.params.id});
+    } catch (error) {
+        return res.redirect('/')
+    }
     let obj = {}
     for(let i=0;i<users.length;i++){
         if(users[i].id==req.params.id){
