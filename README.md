@@ -191,3 +191,5 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 * View : GUI related
 * Controller (Brain of Application) : connects Model and View
 * Breaked the code in MVC Architecture in `app` folder
+
+### lecture 23:

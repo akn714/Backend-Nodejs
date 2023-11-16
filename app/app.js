@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser')
 const log = require('./logger')
 
 const app = express()
+module.exports = app
 
 app.use(express.urlencoded())
 

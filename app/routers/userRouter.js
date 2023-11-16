@@ -1,25 +1,23 @@
 const express = require('express')
 const log = require('../logger')
-const {getUsers, postUser, updateUser, deleteUser, getUserById, protect_middleware, protected_route} = require('../controller/userController')
-
+const {getUser, getAllUsers, updateUser, deleteUser, protect_middleware, protected_route} = require('../controller/userController')
+const app = require('../app')
 const userRouter = express.Router()
 
 
-// routes of miniapp - userRouter
-userRouter
-.route('/')     // this means the route is '/user/'
-.get(log, getUsers)
-.post(log, postUser)
-.patch(log, updateUser)
-.delete(log, deleteUser)
+// user options
+userRouter.route('/:id')
+.patch(updateUser)
+.delete(deleteUser)
 
-userRouter
-.route('/protected_route')
-.get(log, protect_middleware, protected_route)
+// profile page
+app.use(protect_middleware)
+userRouter.route('/userProfile')
+.get(getUser)
 
-// this route should always present after all routes
-userRouter
-.route('/:id')  // this means the route is '/user/:id'
-.get(log, getUserById)
+// admin specific routes
+app.use(isAuthorised(['admin']))
+userRouter.route('')
+.get(getAllUsers)
 
 module.exports = userRouter

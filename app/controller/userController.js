@@ -2,59 +2,97 @@ const userModel = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 const keys = require('../sescrets')
 
+module.exports.getUser = async function getUser(req, res) {
+    let id = req.params.id;
 
-module.exports.postUser = function postUser(req, res){
-    // res.send(users);
-    // console.log(req.body)
-    users = req.body
-    res.json({
-        "res":"data received successfully",
-        "user":req.body.name
-    })
-}
-
-module.exports.getUsers = async function getUsers(req, res) {
-    let users = await userModel.find()
-    res.json({
-        "msg": "all users fetched",
-        "users": users
-    });
+    let user = await userModel.findById(id);
+    if (user) {
+        return res.json({
+            user: user
+        })
+    }
+    else {
+        return res.json({
+            msg: 'user not found'
+        })
+    }
 }
 
 module.exports.updateUser = async function updateUser(req, res) {
-    let user = await userModel.findOneAndUpdate({ 'email': 'mario@cartoon.com' }, { 'name': 'mario cartoon' });
-    res.json({
-        "res": 'data updated successfully',
-        "users": user
-    })
-}
-
-module.exports.deleteUser = function deleteUser(req, res){
-    users = {}
-    res.json({
-        "res":'data delete successfully',
-        "users":users
-    })
-}
-
-module.exports.getUserById = async function getUserById(req, res){
-    // console.log(req.params.id)
-    // console.log(req.params)
-    let user;
     try {
-        user = await userModel.findOne({'_id':req.params.id});
-    } catch (error) {
-        return res.redirect('/')
-    }
-    let obj = {}
-    for(let i=0;i<users.length;i++){
-        if(users[i].id==req.params.id){
-            obj = users[i]
+        let id = req.params.id;
+        let user = await userModel.findById(id);
+        let dataToBeUpdated = req.body;
+        if (user) {
+            const keys = [];
+            for (let key in dataToBeUpdated) {
+                keys.push(key);
+            }
+
+            for (let i = 0; i < keys.length; i++) {
+                user[keys[i]] = dataToBeUpdated[keys[i]];
+            }
+            const updatedData = await user.save();
+            return res.json({
+                "res": 'data updated successfully',
+                "users": user
+            })
         }
+        else {
+            return res.json({
+                message: 'User not found'
+            })
+        }
+    } catch (error) {
+        res.json({
+            error: error
+        })
     }
-    res.json({
-        "user": user
-    })
+}
+
+module.exports.deleteUser = async function deleteUser(req, res) {
+    try {
+        let id = req.params.id;
+        let user = await userModel.findByIdAndDelete(id);
+    
+        if(user){
+            res.json({
+                "res": 'data delete successfully',
+                "users": users
+            })
+        }
+        else{
+            res.json({
+                message: 'User Deleted Successfully',
+                data: user
+            })
+        }
+    } catch (error) {
+        res.json({
+            error: error
+        })
+    }
+}
+
+module.exports.getAllUser = async function getAllUser(req, res) {
+    try {
+        let users = await userModel.find();
+        if(users){
+            res.json({
+                message: 'Users Retrieved',
+                data: users
+            })
+        }
+        else{
+            res.json({
+                message: 'No User Retrieved'
+            })
+        }
+    } catch (error) {
+        res.json({
+            error: error
+        })   
+    }
 }
 
 module.exports.protect_middleware = function protect_middleware(req, res, next) {
