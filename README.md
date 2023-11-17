@@ -203,3 +203,6 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 
 ### lecture 26:
 * writing forgetpassword and resetpassword function, created routes for these funciton -> '/forgetpassword', '/resetpassword/:token'
+
+### lecture 27:
+* Attaching methods in mongoose schema -> createResetToken, resetPasswordHandler 

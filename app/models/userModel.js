@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const emailValidator = require('email-validator')
 const bcrypt = require('bcrypt')
+const crypto = require('crypto')
 
 const dotenv = require('dotenv')
 dotenv.config()
@@ -75,6 +76,22 @@ userSchema.post('save', function(doc){
 //     // saving hashed password
 //     this.password = hashedPassword
 // })
+
+// model functions
+userSchema.methods.createResetToken = function(){
+    // creating unique token using crypto
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    this.resetToken = resetToken;
+    return resetToken;
+}
+
+userSchema.methods.resetPasswordHandler = function(password, confirmPassword){
+    this.password = password;
+    this.confirmPassword = confirmPassword;
+
+    // removing resetToken from db
+    this.resetToken = undefined;
+}
 
 // model
 const userModel = mongoose.model('userModel', userSchema);
