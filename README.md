@@ -206,3 +206,7 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 
 ### lecture 27:
 * Attaching methods in mongoose schema -> createResetToken, resetPasswordHandler 
+
+### lecture 28:
+* creating logout function -> already done by myself
+

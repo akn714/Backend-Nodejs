@@ -1,7 +1,7 @@
 const express = require('express')
 const log = require('../logger')
 const {getUser, getAllUser, deleteUser, updateUser } = require('../controller/userController')
-const { getSignupPage, getLoginPage, signup, login, isAuthorised, protectRoute, logoutUser } = require('../controller/authController')
+const { getSignupPage, getLoginPage, signup, login, isAuthorised, protectRoute, logout } = require('../controller/authController')
 const userModel = require('../models/userModel')
 const userRouter = express.Router()
 
@@ -19,11 +19,11 @@ userRouter.route('/login')
 .get(getLoginPage)
 .post(login)
 
-userRouter.route('/forgetpassword')
-.post(forgetpassword)
+// userRouter.route('/forgetpassword')
+// .post(forgetpassword)
 
-userRouter.route('/resetpassword/:token')
-.post(resetpassword)
+// userRouter.route('/resetpassword/:token')
+// .post(resetpassword)
 
 // profile page
 userRouter.use(protectRoute)
@@ -31,7 +31,7 @@ userRouter.route('/userProfile')
 .get(getUser)
 
 userRouter.route('/logout')
-.get(logoutUser)
+.get(logout)
 
 userRouter.route('/update')
 .get((req, res)=>{

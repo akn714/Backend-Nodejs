@@ -135,10 +135,16 @@ module.exports.isAuthorised = function isAuthorised(roles) {
 module.exports.protectRoute = async function protectRoute(req, res, next) {
     try {
         if (!req.cookies.login) {
-            return res.redirect('/user/login');
-            // return res.json({
-            //     message: 'I am redirected to this route'
-            // })
+            // checking if the request is made from any browser or and app like postman
+            const client = req.get('User-Agent');
+            if(client.includes('Mozilla')==true){
+                return res.redirect('/user/login');
+            }
+            else{
+                return res.json({
+                    message: 'please login'
+                })
+            }
         }
         else {
             let token = req.cookies.login;
@@ -169,7 +175,7 @@ module.exports.protectRoute = async function protectRoute(req, res, next) {
 }
 
 // logout funcion
-module.exports.logoutUser = function logoutUser(req, res) {
+module.exports.logout = function logout(req, res) {
     res.cookie('login', '', { expires: new Date(0), httpOnly: true, secure: true })
     res.send({
         message: 'User logged out'
