@@ -20,9 +20,11 @@ module.exports.getUser = async function getUser(req, res) {
 
 module.exports.updateUser = async function updateUser(req, res) {
     try {
-        let id = req.params.id;
+        // let id = req.params.id;
+        let id = req.id;
         let user = await userModel.findById(id);
         let dataToBeUpdated = req.body;
+        console.log(dataToBeUpdatede)
         if (user) {
             const keys = [];
             for (let key in dataToBeUpdated) {
@@ -32,10 +34,18 @@ module.exports.updateUser = async function updateUser(req, res) {
             for (let i = 0; i < keys.length; i++) {
                 user[keys[i]] = dataToBeUpdated[keys[i]];
             }
-            const updatedData = await user.save();
+            const updatedData = null;
+            console.log(user, dataToBeUpdated)
+            try {
+                updatedData = await user.save();
+            } catch (error) {
+                return res.json({
+                    'asdf':'asdf'
+                })
+            }
             return res.json({
                 "res": 'data updated successfully',
-                "users": user
+                "users": updatedData
             })
         }
         else {
@@ -52,19 +62,21 @@ module.exports.updateUser = async function updateUser(req, res) {
 
 module.exports.deleteUser = async function deleteUser(req, res) {
     try {
-        let id = req.params.id;
+        // let id = req.params.id;
+        let id = req.id;
         let user = await userModel.findByIdAndDelete(id);
     
         if(user){
+            res.cookie('login', '', { expires: new Date(0), httpOnly: true, secure: true })
+            
             res.json({
-                "res": 'data delete successfully',
-                "users": users
+                message: 'user delete successfully',
+                deletedUser: user
             })
         }
         else{
             res.json({
-                message: 'User Deleted Successfully',
-                data: user
+                message: 'User not found'
             })
         }
     } catch (error) {

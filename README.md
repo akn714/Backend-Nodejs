@@ -197,3 +197,6 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 
 ### lecture 24:
 * Implementing auth operatoins | part 2 -> /user/login, /user/signup
+
+### lecture 25:
+* testing all operatoins -> done

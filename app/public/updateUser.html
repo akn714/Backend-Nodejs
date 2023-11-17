@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update User</title>
+</head>
+<body>
+    <form action="/user/update" method="patch">
+        <label for="name">username</label>
+        <input type="text" id="name" name="name">
+        <label for="email">email</label>
+        <input type="email" id="email" name="email">
+        <label for="password">password</label>
+        <input type="password" id="password" name="password">
+        <button>Update User</button>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        let btn = document.querySelector('button')
+        btn.addEventListener('click', async (e)=>{
+            e.preventDefault();
+
+            let name = document.querySelector('#name').value;
+            let email = document.querySelector('#email').value;
+            let password = document.querySelector('#password').value;
+
+            let data = {"name":name, "email":email};
+            let res = await axios.patch('/user/update', data)
+            console.log(res)
+        
+            document.location.href = 'http://localhost:3000/user/userProfile'
+            console.log(document.location.href)
+        })
+    </script>
+</body>
+</html>

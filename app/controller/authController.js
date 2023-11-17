@@ -14,11 +14,6 @@ module.exports.getSignupPage = function getSignupPage(req, res){
 
 // signup user
 module.exports.signup = async function signup(req, res) {
-    // let email = req.body.email
-    // let username = req.body.username
-    // let password = req.body.password
-    // let confirmPassword = req.body.confirmPassword
-
     try {
         if(req.cookies.login){
             return res.send({
@@ -149,11 +144,16 @@ module.exports.protectRoute = async function protectRoute(req, res, next) {
             let token = req.cookies.login;
             let payload = jwt.verify(token, JWT_KEY);
             if(payload){
-                const user = await userModel.findById(payload.payload);
-                req.role = user.role;
-                req.id = user.id;
-
-                next();
+                try {
+                    const user = await userModel.findById(payload.payload);
+                    req.role = user.role;
+                    req.id = user.id;
+                    next();
+                } catch (error) {
+                    return res.json({
+                        message: 'User Not Found'
+                    })
+                }
             }
             else{
                 return res.json({
