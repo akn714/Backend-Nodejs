@@ -193,3 +193,7 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 * Breaked the code in MVC Architecture in `app` folder
 
 ### lecture 23:
+* Implementing user operations | part 1 -> /userProfile, /:id, getUser, getAllUser, deleteUser, updateUser
+
+### lecture 24:
+* Implementing auth operatoins | part 2 -> /user/login, /user/signup

@@ -1,9 +1,9 @@
 const userModel = require('../models/userModel')
 const jwt = require('jsonwebtoken')
-const keys = require('../sescrets')
+const {JWT_KEY} = require('../sescrets')
 
 module.exports.getUser = async function getUser(req, res) {
-    let id = req.params.id;
+    let id = req.id;
 
     let user = await userModel.findById(id);
     if (user) {
@@ -92,41 +92,5 @@ module.exports.getAllUser = async function getAllUser(req, res) {
         res.json({
             error: error
         })   
-    }
-}
-
-module.exports.protect_middleware = function protect_middleware(req, res, next) {
-    try {
-        if (!req.cookies.login) {
-            return res.redirect('/auth/login');
-        }
-        else {
-            let isVerified = jwt.verify(req.cookies.login, keys.JWT_KEY);
-            if (isVerified) {
-                next();
-            }
-            else {
-                return res.json({
-                    message: 'User not verified'
-                })
-            }
-        }
-    } catch (error) {
-        res.status(500).send({
-            error: error
-        })
-    }
-}
-
-module.exports.protected_route = function protected_route(req, res, next) {
-    try {
-        res.send({
-            message: 'only logged in users can view this key',
-            dummy_secret_key: 'lol'
-        })
-    } catch (error) {
-        res.status(500).send({
-            error: error
-        })
     }
 }

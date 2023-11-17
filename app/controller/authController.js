@@ -1,85 +1,116 @@
 const userModel = require('../models/userModel')
 const jwt = require('jsonwebtoken')
-const keys = require('../sescrets')
+const { JWT_KEY } = require('../sescrets')
 
-module.exports.middleware1 = function middleware1(req, res, next){
-    // console.log('[+] middleware1 encountered');
-    next();
+// get signup page
+module.exports.getSignupPage = function getSignupPage(req, res){
+    if(req.cookies.login){
+        return res.send({
+            message: 'User Already Logged In'
+        })
+    }
+    res.sendFile('D:/coding/github/Backend-Nodejs/app/public/signup.html')
 }
 
-module.exports.middleware2 = function middleware2(req, res, next){
-    // console.log('[+] middleware2 encountered');
-    return res.sendFile('C:/Users/adars/Desktop/coding/github/Backend-Nodejs/codes2/public/index.html')
-    // return res.json({
-    //     message: 'GET /signup'
-    // })
-}
-
-module.exports.getSignUp = function getSignUp(req, res, next){
-    // console.log('[+] getting signup page')
-    // res.sendFile(__dirname+'/public/index.html')
-    next()
-}
-
-module.exports.postSignUp = async function postSignUp(req, res){
+// signup user
+module.exports.signup = async function signup(req, res) {
     // let email = req.body.email
     // let username = req.body.username
     // let password = req.body.password
     // let confirmPassword = req.body.confirmPassword
 
-    let data;
     try {
-        data = await userModel.create(req.body);
-    }
-    catch (error) {        
-        if(req.body.password.length<8){
-            // res.redirect('/')
+        if(req.cookies.login){
             return res.send({
-                message: 'password should contain atleast 8 characters'
+                message: 'User Already Logged In'
             })
         }
-        return res.send({
-            message: 'an error occured!'
+        let data = req.body;
+        console.log(data)
+        let user = await userModel.create(data);
+        console.log(user)
+
+        if (user) {
+            let uid = user['_id'];
+            let token = jwt.sign({ payload: uid }, JWT_KEY);
+            res.cookie('login', token, { maxAge: 24 * 60 * 60 * 1000, secure: true, httpOnly: true });
+
+            return res.json({
+                message: 'user signed up',
+                data: user
+            })
+        }
+        else {
+            return res.json({
+                message: 'An error occured while signing up'
+            })
+        }
+
+
+        // if(req.body.password.length<8){
+        //     // res.redirect('/')
+        //     return res.send({
+        //         message: 'password should contain atleast 8 characters'
+        //     })
+        // }
+    }
+    catch (error) {
+        return res.json({
+            error: error
         })
     }
-
-    // console.log('[+] from postSignUp', req.body)
-    res.send({
-        "msg":"user signed up",
-        "user":data
-    })
 }
 
+// get login page
 module.exports.getLoginPage = function getLoginPage(req, res){
-    return res.sendFile('C:/Users/adars/Desktop/coding/github/Backend-Nodejs/codes2/public/login.html')
+    if(req.cookies.login){
+        return res.send({
+            message: 'User Already Logged In'
+        })
+    }
+    res.sendFile('D:/coding/github/Backend-Nodejs/app/public/login.html')
 }
 
-module.exports.loginUser = async function loginUser(req, res){
+// login user
+module.exports.login = async function login(req, res) {
     try {
+        if(req.cookies.login){
+            return res.send({
+                message: 'User Already Logged In'
+            })
+        }
         let data = req.body;
-        let user = await userModel.findOne({'email':data.email});
-    
-        if(user){
+
+        if (!data.email) {
+            console.log('asdfasf')
+            return res.json({
+                message: 'User not found'
+            })
+        }
+
+        let user = await userModel.findOne({ 'email': data.email });
+
+        if (user) {
             // bcrpyt -> compare
-            if(user.password==data.password){
+            if (user.password == data.password) {
                 // setting isLoggedIn cookie true if the user is logged in
                 // res.cookie('isLoggedIn', true, {maxAge:24*60*60*1000, secure:true, httpOnly:true});
                 let uid = user['_id'];
-                let token = jwt.sign({payload: uid}, keys.JWT_KEY);
-                res.cookie('login', token, {maxAge:24*60*60*1000, secure:true, httpOnly:true});
-                
+                let token = jwt.sign({ payload: uid }, JWT_KEY);
+                res.cookie('login', token, { maxAge: 24 * 60 * 60 * 1000, secure: true, httpOnly: true });
+
                 return res.json({
                     message: 'User has logged in',
                     userDetails: data
                 });
             }
-            else{
+            else {
                 return res.json({
                     message: 'Invalid credentials!'
                 })
             }
         }
-        else{
+        else {
             return res.json({
                 message: 'user not found'
             });
@@ -91,8 +122,54 @@ module.exports.loginUser = async function loginUser(req, res){
     }
 }
 
-module.exports.logoutUser = function logoutUser(req, res){
-    res.cookie('login', '', {expires: new Date(0), httpOnly: true, secure: true})
+// isAuthorised function -> To check user's role
+module.exports.isAuthorised = function isAuthorised(roles) {
+    return function (req, res, next) {
+        if (roles.includes(req.role) == true) {
+            next();
+        }
+        else {
+            return res.status(401).json({
+                message: 'Operation Not Allowed'
+            })
+        }
+    }
+}
+
+// protectRoute
+module.exports.protectRoute = async function protectRoute(req, res, next) {
+    try {
+        if (!req.cookies.login) {
+            return res.redirect('/user/login');
+            // return res.json({
+            //     message: 'I am redirected to this route'
+            // })
+        }
+        else {
+            let token = req.cookies.login;
+            let payload = jwt.verify(token, JWT_KEY);
+            if(payload){
+                const user = await userModel.findById(payload.payload);
+                req.role = user.role;
+                req.id = user.id;
+
+                next();
+            }
+            else{
+                return res.json({
+                    message: 'User Not Found'
+                })
+            }
+        }
+    } catch (error) {
+        res.status(500).send({
+            error: error
+        })
+    }
+}
+
+module.exports.logoutUser = function logoutUser(req, res) {
+    res.cookie('login', '', { expires: new Date(0), httpOnly: true, secure: true })
     res.send({
         message: 'User logged out'
     })

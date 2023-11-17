@@ -1,23 +1,34 @@
 const express = require('express')
 const log = require('../logger')
-const {getUser, getAllUsers, updateUser, deleteUser, protect_middleware, protected_route} = require('../controller/userController')
-const app = require('../app')
+const {getUser, getAllUser } = require('../controller/userController')
+const { getSignupPage, getLoginPage, signup, login, isAuthorised, protectRoute, logoutUser } = require('../controller/authController')
 const userRouter = express.Router()
 
 
 // user options
-userRouter.route('/:id')
-.patch(updateUser)
-.delete(deleteUser)
+// userRouter.route('/:id')
+// .patch(updateUser)
+// .delete(deleteUser)
+
+userRouter.route('/signup')
+.get(getSignupPage)
+.post(signup)
+
+userRouter.route('/login')
+.get(getLoginPage)
+.post(login)
 
 // profile page
-app.use(protect_middleware)
+userRouter.use(protectRoute)
 userRouter.route('/userProfile')
 .get(getUser)
 
+userRouter.route('/logout')
+.get(logoutUser)
+
 // admin specific routes
-app.use(isAuthorised(['admin']))
+userRouter.use(isAuthorised(['admin']))
 userRouter.route('')
-.get(getAllUsers)
+.get(getAllUser)
 
 module.exports = userRouter
