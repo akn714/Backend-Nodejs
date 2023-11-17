@@ -14,20 +14,20 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 * `/auth/logout`, GET : logs out the user (removes isLoggedIn cookie)
 
 ## Tracker
-#### lecture 00, lecture 01, lecture 02, lecture 03, lecture 04, lecture 05, lecture 06:
+### lecture 00, lecture 01, lecture 02, lecture 03, lecture 04, lecture 05, lecture 06:
 * Basics
 * Status code helps in SEO
-#### lecture 07:
+### lecture 07:
 * HTTP methods
     * GET - Getting data from server
     * POST - Sending data to server
     * PATCH - Updating data on server
     * DELETE - Deleting data on server
 * Postman
-#### lecture 08:
+### lecture 08:
 * URL parameters - 'http://localhost:3000/product/:id'
 * Queries in express - 'http://localhost:3000/?iphone=13&GB=128'
-#### lecture 09:
+### lecture 09:
 * APIs
 * REST APIs
     * If APIs follow some rules then they will be called REST APIs
@@ -41,12 +41,12 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
         * use ```app.delete('/users')``` instead of ```app.get('/deleteusers')```
     * 4. response should always be in JSON formate
     * 5. API should be stateless
-#### lecture 10:
+### lecture 10:
 * mounting in express
 * express.Router() - used to make mini app
-#### lecture 11:
+### lecture 11:
 * creating post request from frontend to backend using axios
-#### lecture 12:
+### lecture 12:
 * middleware -
     * works between getting request and sending response
     * runs in a sequence
@@ -60,7 +60,7 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
         }
     ```
 * ending the request and response cycle in middleware
-#### lecture 13:
+### lecture 13:
 * mongoDB:
     * pros
         * open source
@@ -72,18 +72,18 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
         * unable to do complex transactions
         * can not maintain ACID properties (atomicity, consistency, isolation, and durability)
         * not used in banking systems
-#### lecture 14:
+### lecture 14:
 * mongoDB Atlas
 * schema
 * model
 * creating a new document in mongoDB Atlas using ```modelname.create()```
-#### lecture 15:
+### lecture 15:
 * CURD operations in MongoDB (https://mongoosejs.com/docs/queries.html)
     * C - create: ```modelname.create()```
     * R - read: ```modelname.find()```, ```modelname.findOne()```, etc.
     * U - update: ```modelname.findOneAndUpdate()```
     * D - delete: ```modelname.findOneAndDelete()```
-#### lecture 16:
+### lecture 16:
 * Mongoose hooks - code which runs before saving or after saving the data in DB
     * pre-hooks - code runs before saving data
     ```js
@@ -113,7 +113,7 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 * validation property in schema
     * email-validator ( 3rd party npm library )
 * If a value of any field in document is ```undefined``` then mongoDB will not save that field
-#### lecture 17:
+### lecture 17:
 * hashing
     * salt or sected key: this is mixed with actual password string before hashing
         * eg: 
@@ -122,7 +122,7 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
         password to be hashed - a12b3c4 ( abc + 1234 )
         hashed password (abc1234) - o03be7ye8
     * bcrypt ( 3rd party npm library )
-#### lecture 18:
+### lecture 18:
 * cookies -
     * used to store data in users browser
     * this will be sent in every req object from browser
@@ -144,7 +144,7 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
     * don't forget to put this line at top when working with cookies
     * `app.use(require('cookie-parser'))`
 
-#### lecture 19:
+### lecture 19:
 * creating login function
 * refactoring the code
 
