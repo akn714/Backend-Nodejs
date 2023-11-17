@@ -2,6 +2,8 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const log = require('./logger')
 
+const planModel = require('./models/planModel')
+
 const app = express()
 module.exports = app
 
