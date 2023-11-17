@@ -51,7 +51,7 @@ module.exports.signup = async function signup(req, res) {
     }
     catch (error) {
         return res.json({
-            error: error
+            error: error.message
         })
     }
 }

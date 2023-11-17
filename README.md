@@ -216,3 +216,7 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 ### lecture 30:
 * creating plan routes
 
+### lecture 31:
+* writting functions for plan routes
+
+

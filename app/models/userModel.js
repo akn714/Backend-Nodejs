@@ -40,9 +40,9 @@ const userSchema = mongoose.Schema({
         type:String,
         require:true,
         minLength:8,
-        validate:function(){
+        validate:[function(){
             return this.confirmPassword==this.password
-        }
+        }, 'password and confirmPassword are not same!']    // custom error message
     },
     role:{
         type:String,
