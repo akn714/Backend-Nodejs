@@ -168,9 +168,60 @@ module.exports.protectRoute = async function protectRoute(req, res, next) {
     }
 }
 
+// logout funcion
 module.exports.logoutUser = function logoutUser(req, res) {
     res.cookie('login', '', { expires: new Date(0), httpOnly: true, secure: true })
     res.send({
         message: 'User logged out'
     })
+}
+
+// forget password
+module.exports.forgetpassword = async function forgetpassword(req, res){
+    let {email} = req.body;
+    try {
+        const user = await userModel.findOne({email:email});
+        if(user){
+            // createResetToken creates a new token
+            const resetToken = user.createResetToken();
+            let resetPasswordLink = `${req.protocol}://${req.get('host')}/user/resetPassword/${resetToken}`
+    
+            // send mail to the user -> nodemailer
+        }
+        else{
+            return res.json({
+                message: 'Please signup'
+            })
+        }
+    } catch (error) {
+        return res.status(500).json({
+            error: error.message
+        })
+    }
+}
+
+// reset password
+module.exports.resetpassword = async function resetpassword(req, res){
+    try {
+        const token = req.params.token;
+        let {password, confirmPassword} = req.body;
+        const user = await userModel.findOne({resetToken: token});
+        if(user){
+            // resetPasswordHandler will update user in db
+            user.resetPasswordHandler(password, confirmPassword);
+            await user.save();
+            res.json({
+                message: 'password changed succesfully'
+            })
+        }
+        else{
+            return res.json({
+                message: 'user not found'
+            })
+        }
+    } catch (error) {
+        return res.json({
+            error: error.message
+        })
+    }
 }

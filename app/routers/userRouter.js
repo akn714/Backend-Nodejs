@@ -19,6 +19,12 @@ userRouter.route('/login')
 .get(getLoginPage)
 .post(login)
 
+userRouter.route('/forgetpassword')
+.post(forgetpassword)
+
+userRouter.route('/resetpassword/:token')
+.post(resetpassword)
+
 // profile page
 userRouter.use(protectRoute)
 userRouter.route('/userProfile')
