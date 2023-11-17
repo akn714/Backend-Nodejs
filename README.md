@@ -213,3 +213,6 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 ### lecture 29:
 * creating planModel, creading a document in plan db
 
+### lecture 30:
+* creating plan routes
+
