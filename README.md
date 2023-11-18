@@ -224,3 +224,6 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 * till now all routes are working fine
 * started working on postman
 
+### lecture 33:
+* creating reviewModel
+
