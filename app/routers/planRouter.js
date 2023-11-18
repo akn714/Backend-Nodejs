@@ -9,11 +9,15 @@ planRouter.route('/allPlans')
 // top 3 plans
 
 planRouter.use(protectRoute)
-planRouter.route('/plan/:id')
+planRouter.route('/:id')
 .get(getPlan)
 
 planRouter.use(isAuthorised(['admin','resturantowner']))
-planRouter.route()
+planRouter.route('/crudPlan')
 .post(createPlan)
+
+planRouter.route('/crudPlan/:id')
 .patch(updatePlan)
 .delete(deletePlan)
+
+module.exports = planRouter

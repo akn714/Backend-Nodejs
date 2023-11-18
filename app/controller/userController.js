@@ -24,7 +24,7 @@ module.exports.updateUser = async function updateUser(req, res) {
         let id = req.id;
         let user = await userModel.findById(id);
         let dataToBeUpdated = req.body;
-        console.log(dataToBeUpdatede)
+        // console.log(dataToBeUpdated)
         if (user) {
             const keys = [];
             for (let key in dataToBeUpdated) {
@@ -36,16 +36,12 @@ module.exports.updateUser = async function updateUser(req, res) {
             }
             const updatedData = null;
             console.log(user, dataToBeUpdated)
-            try {
-                updatedData = await user.save();
-            } catch (error) {
-                return res.json({
-                    'asdf':'asdf'
-                })
-            }
+            
+            await user.save();
+
             return res.json({
                 "res": 'data updated successfully',
-                "users": updatedData
+                "users": user
             })
         }
         else {

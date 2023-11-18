@@ -217,6 +217,10 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 * creating plan routes
 
 ### lecture 31:
-* writting functions for plan routes
+* writting functions for plan routes in planController.js
 
+### lecture 32:
+* testing functions written for plans -> done
+* till now all routes are working fine
+* started working on postman
 

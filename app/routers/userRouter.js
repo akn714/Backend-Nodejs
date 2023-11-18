@@ -12,12 +12,12 @@ const userRouter = express.Router()
 // .delete(deleteUser)
 
 userRouter.route('/signup')
-.get(getSignupPage)
 .post(signup)
+// .get(getSignupPage)
 
 userRouter.route('/login')
-.get(getLoginPage)
 .post(login)
+// .get(getLoginPage)
 
 // userRouter.route('/forgetpassword')
 // .post(forgetpassword)
@@ -34,16 +34,16 @@ userRouter.route('/logout')
 .get(logout)
 
 userRouter.route('/update')
-.get((req, res)=>{
-    res.sendFile('D:/coding/github/Backend-Nodejs/app/public/updateUser.html')
-})
 .patch(updateUser)
+// .get((req, res)=>{
+//     res.sendFile('D:/coding/github/Backend-Nodejs/app/public/updateUser.html')
+// })
 
 userRouter.route('/delete')
-.get((req, res)=>{
-    res.sendFile('D:/coding/github/Backend-Nodejs/app/public/deleteUser.html')
-})
 .delete(deleteUser)
+// .get((req, res)=>{
+//     res.sendFile('D:/coding/github/Backend-Nodejs/app/public/deleteUser.html')
+// })
 
 // ADMIN SPECIFIC ROUTES
 userRouter.use(isAuthorised(['admin']))

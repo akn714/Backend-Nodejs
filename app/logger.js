@@ -1,5 +1,5 @@
 function log(req, res, next){
-    console.log(req.url, req.method);
+    console.log(req.method, req.url);
     next();
 }
 

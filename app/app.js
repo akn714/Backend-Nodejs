@@ -2,8 +2,6 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const log = require('./logger')
 
-const planModel = require('./models/planModel')
-
 const app = express()
 module.exports = app
 
@@ -21,13 +19,15 @@ app.get('/', log, (req, res)=>{
 // mini apps
 const userRouter = require('./routers/userRouter')
 // const authRouter = require('./routers/authRouter')
+const planRouter = require('./routers/planRouter')
 
 // base routes
-app.use('/user', userRouter)    // base route - '/user'
+app.use('/user', log, userRouter)    // base route - '/user'
 // app.use('/auth', authRouter)
+app.use('/plan', log, planRouter)
 
 app.get('*', log, (req, res)=>{
-    res.send({
+    res.status(404).send({
         message: '404 url not found'
     })
 })

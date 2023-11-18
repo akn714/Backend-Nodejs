@@ -1,5 +1,26 @@
 const planModel = require('../models/planModel')
 
+module.exports.getAllPlans = async function getAllPlans(req, res){
+    try {
+        let plan = await planModel.find();
+        if(plan){
+            return res.json({
+                message: 'plans retrieved',
+                data: plan
+            })
+        }
+        else{
+            return res.json({
+                message: 'no plans found'
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            error: error
+        })
+    }
+}
+
 module.exports.getPlan = async function getPlan(req, res){
     try {
         let id = req.params.id;
@@ -61,12 +82,25 @@ module.exports.updatePlan = async function updatePlan(req, res){
             keys.push(key);
         }
         let plan = await planModel.findById(id);
-        for(let i=0;i<keys.length;i++){
-            plan[keys[i]] = dataToBeUpdated[key[i]];
+        if(plan){
+            for(let i=0;i<keys.length;i++){
+                plan[keys[i]] = dataToBeUpdated[keys[i]];
+            }
+            console.log('plan', plan)
+            console.log('datatobeudated', dataToBeUpdated)
+            await plan.save();
+            return res.json({
+                message: 'plan updated succesfully',
+                plan: plan
+            })
         }
-        await plan.save();
+        else{
+            return res.json({
+                message: 'plan not found'
+            })
+        }
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             error: error
         })
     }
