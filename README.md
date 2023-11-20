@@ -229,3 +229,9 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 
 ### lecture 34:
 * creating routes for review
+
+### lecture 35:
+* creating controller function for reviews
+
+### lecture 36:
+* testing functions written for plans -> done

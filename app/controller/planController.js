@@ -116,7 +116,6 @@ module.exports.top3Plans = async function top3Plans(req, res){
             message: 'top 3 plans',
             data: plans
         })
-
     } catch (error) {
         res.status(500).json({
             error: error.message

@@ -8,7 +8,7 @@ const db_link = process.env.DB_LINK;
 mongoose.connect(db_link)
 .then((db)=>{
     // console.log(db)
-    console.log('[+] plan db connected')
+    console.log('[+] review db connected')
 })
 .catch((err)=>{
     console.log(err)
@@ -44,7 +44,7 @@ const reviewSchema = new mongoose.Schema({
 })
 
 // pre hook
-reviewSchema.pre(/^find/, function(nenxt){
+reviewSchema.pre(/^find/, function(next){
     this.populate({
         path: "user",
         select: "name profileImage"

@@ -5,19 +5,18 @@ const { getSignupPage, getLoginPage, signup, login, isAuthorised, protectRoute, 
 const userModel = require('../models/userModel')
 const userRouter = express.Router()
 
-
 // user options
 // userRouter.route('/:id')
 // .patch(updateUser)
 // .delete(deleteUser)
 
 userRouter.route('/signup')
+.get(getSignupPage)
 .post(signup)
-// .get(getSignupPage)
 
 userRouter.route('/login')
+.get(getLoginPage)
 .post(login)
-// .get(getLoginPage)
 
 // userRouter.route('/forgetpassword')
 // .post(forgetpassword)
