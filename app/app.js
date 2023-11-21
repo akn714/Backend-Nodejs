@@ -32,7 +32,7 @@ app.use('/plan', planRouter)
 app.use('/review', reviewRouter)
 app.use('/booking', bookingRouter)
 
-app.get('*', (req, res)=>{
+app.use((req, res)=>{
     res.status(404).send({
         message: '404 url not found'
     })
