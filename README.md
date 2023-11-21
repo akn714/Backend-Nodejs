@@ -235,3 +235,8 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 
 ### lecture 36:
 * testing functions written for plans -> done
+
+### lecture 37: 
+* Stripe API -> API for Integrating Payments
+* Implemented Stripe API but not working properly
+

@@ -21,12 +21,14 @@ const userRouter = require('./routers/userRouter')
 // const authRouter = require('./routers/authRouter')
 const planRouter = require('./routers/planRouter')
 const reviewRouter = require('./routers/reviewRouter')
+const bookingRouter = require('./routers/bookingRouter')
 
 // base routes
 app.use('/user', log, userRouter)    // base route - '/user'
 // app.use('/auth', authRouter)
 app.use('/plan', log, planRouter)
 app.use('/review', log, reviewRouter)
+app.use('/booking', log, bookingRouter)
 
 app.get('*', log, (req, res)=>{
     res.status(404).send({
