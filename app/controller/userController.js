@@ -102,3 +102,10 @@ module.exports.getAllUser = async function getAllUser(req, res) {
         })   
     }
 }
+
+module.exports.uploadProfileImage = function uploadProfileImage(req, res){
+    res.json({
+        message: 'file uploaded succesfully'
+    })
+}
+

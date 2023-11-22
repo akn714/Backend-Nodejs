@@ -1,6 +1,8 @@
 const express = require('express')
+const multer = require('multer')
+
 const log = require('../logger')
-const {getUser, getAllUser, deleteUser, updateUser } = require('../controller/userController')
+const {getUser, getAllUser, deleteUser, updateUser, uploadProfileImage } = require('../controller/userController')
 const { getSignupPage, getLoginPage, signup, login, isAuthorised, protectRoute, logout } = require('../controller/authController')
 const userModel = require('../models/userModel')
 const userRouter = express.Router()
@@ -24,10 +26,39 @@ userRouter.route('/login')
 // userRouter.route('/resetpassword/:token')
 // .post(resetpassword)
 
+// multer for file upload
+const multerStorage = multer.diskStorage({
+    destination: function(req, file, callback){
+        callback(null, './public/images');
+    },
+    filename: function(req, file, callback){
+        callback(null, `user-${Date.now()}.jpeg`)
+    }
+})
+
+const filter = function(req, file, callback){
+    if(file.mimetype.startsWith("image")){
+        callback(null, true);
+    }
+    else{
+        callback(new Error("Not an Image! Please upload an image"), false);
+    }
+}
+
+const upload = multer({
+    storage: multerStorage,
+    fileFilter: filter
+})
+
 // profile page
 userRouter.use(protectRoute)
 userRouter.route('/userProfile')
 .get(getUser)
+
+userRouter.post('/profileImage', upload.single("photo"), uploadProfileImage)
+userRouter.get('/profileImage', (req, res)=>{
+    res.sendFile("D:/coding/github/Backend-Nodejs/app/public/multer.html")
+})
 
 userRouter.route('/logout')
 .get(logout)

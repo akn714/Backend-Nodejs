@@ -240,3 +240,5 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 * Stripe API -> API for Integrating Payments
 * Implemented Stripe API but not working properly
 
+### lecture 38:
+* uploading images using multer
