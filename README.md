@@ -242,3 +242,8 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 
 ### lecture 38:
 * uploading images using multer
+
+### lecture 39:
+* using node mailer
+
+

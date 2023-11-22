@@ -57,7 +57,7 @@ userRouter.route('/userProfile')
 
 userRouter.post('/profileImage', upload.single("photo"), uploadProfileImage)
 userRouter.get('/profileImage', (req, res)=>{
-    res.sendFile("D:/coding/github/Backend-Nodejs/app/public/multer.html")
+    res.sendFile("D:/coding/github/Backend-Nodejs/app/views/multer.html")
 })
 
 userRouter.route('/logout')
@@ -66,13 +66,13 @@ userRouter.route('/logout')
 userRouter.route('/update')
 .patch(updateUser)
 // .get((req, res)=>{
-//     res.sendFile('D:/coding/github/Backend-Nodejs/app/public/updateUser.html')
+//     res.sendFile('D:/coding/github/Backend-Nodejs/app/views/updateUser.html')
 // })
 
 userRouter.route('/delete')
 .delete(deleteUser)
 // .get((req, res)=>{
-//     res.sendFile('D:/coding/github/Backend-Nodejs/app/public/deleteUser.html')
+//     res.sendFile('D:/coding/github/Backend-Nodejs/app/views/deleteUser.html')
 // })
 
 // ADMIN SPECIFIC ROUTES

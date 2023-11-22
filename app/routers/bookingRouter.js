@@ -5,7 +5,7 @@ const bookingRouter = express.Router()
 
 bookingRouter.use(protectRoute)
 bookingRouter.get('/createSession', (req, res)=>{
-    res.sendFile('D:/coding/github/Backend-Nodejs/app/public/booking.html')
+    res.sendFile('D:/coding/github/Backend-Nodejs/app/views/booking.html')
 })
 bookingRouter.post('/createSession', createSession)
 

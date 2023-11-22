@@ -1,10 +1,7 @@
 const express = require('express');
 const userModel = require('../models/userModel');
 const planModel = require('../models/planModel');
-const app = express();
 const stripe = require('stripe')(process.env.STRIPE_SECTRE_KEY)
-
-app.use(express.static('public'));
 
 module.exports.createSession = async function createSession(req, res) {
   try {
