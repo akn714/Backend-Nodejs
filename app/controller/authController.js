@@ -1,6 +1,7 @@
 const userModel = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 const { JWT_KEY } = require('../sescrets')
+const { sendMail } = require('../utility/nodemailer')
 
 // get signup page
 module.exports.getSignupPage = function getSignupPage(req, res){
@@ -29,6 +30,8 @@ module.exports.signup = async function signup(req, res) {
             let uid = user['_id'];
             let token = jwt.sign({ payload: uid }, JWT_KEY);
             res.cookie('login', token, { maxAge: 24 * 60 * 60 * 1000, secure: true, httpOnly: true });
+
+            sendMail("signup", user)
 
             return res.json({
                 message: 'user signed up',
@@ -191,8 +194,17 @@ module.exports.forgetpassword = async function forgetpassword(req, res){
             // createResetToken creates a new token
             const resetToken = user.createResetToken();
             let resetPasswordLink = `${req.protocol}://${req.get('host')}/user/resetPassword/${resetToken}`
+
+            let obj = {
+                resetPasswordLink: resetPasswordLink,
+                email: email
+            }
     
             // send mail to the user -> nodemailer
+            sendMail("resetpassword", obj)
+            res.json({
+                message: 'reset password link send to your registered email address'
+            })
         }
         else{
             return res.json({
