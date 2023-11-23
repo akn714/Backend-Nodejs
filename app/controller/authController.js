@@ -9,7 +9,7 @@ module.exports.getSignupPage = function getSignupPage(req, res){
             message: 'User Already Logged In'
         })
     }
-    res.sendFile('D:/coding/github/Backend-Nodejs/app/public/signup.html')
+    res.sendFile('D:/coding/github/Backend-Nodejs/app/views/signup.html')
 }
 
 // signup user
@@ -63,7 +63,7 @@ module.exports.getLoginPage = function getLoginPage(req, res){
             message: 'User Already Logged In'
         })
     }
-    res.sendFile('D:/coding/github/Backend-Nodejs/app/public/login.html')
+    res.sendFile('D:/coding/github/Backend-Nodejs/app/views/login.html')
 }
 
 // login user
