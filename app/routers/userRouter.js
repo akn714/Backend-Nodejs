@@ -66,9 +66,9 @@ userRouter.route('/logout')
 
 userRouter.route('/update')
 .patch(updateUser)
-// .get((req, res)=>{
-//     res.sendFile('D:/coding/github/Backend-Nodejs/app/views/updateUser.html')
-// })
+.get((req, res)=>{
+    res.sendFile('D:/coding/github/Backend-Nodejs/app/views/updateUser.html')
+})
 
 userRouter.route('/delete')
 .delete(deleteUser)

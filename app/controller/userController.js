@@ -28,6 +28,10 @@ module.exports.updateUser = async function updateUser(req, res) {
         if (user) {
             const keys = [];
             for (let key in dataToBeUpdated) {
+                console.log('key:', key)
+                if(key=='password'){
+                    continue
+                }
                 keys.push(key);
             }
 
