@@ -246,4 +246,6 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 ### lecture 39:
 * using node mailer
 
-
+### lecture  40:
+* CORS: Cross Origin Resource Sharing
+* preflight request
