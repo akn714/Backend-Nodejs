@@ -249,3 +249,8 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 ### lecture  40:
 * CORS: Cross Origin Resource Sharing
 * preflight request
+
+### lecture 41:
+* Integrating frontend | not done in my code
+
+
