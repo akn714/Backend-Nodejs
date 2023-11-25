@@ -6,12 +6,19 @@
     <title>Login</title>
 </head>
 <body>
+    <h4>Login</h4>
     <form action="/user/login" method="post">
         <label for="email">email</label>
         <input type="email" id="email" name="email">
         <label for="password">password</label>
         <input type="password" id="password" name="password">
         <button>Login</button>
+    </form>
+    <h4>Forget Passowrd?</h4>
+    <form action="/user/forgetpassword" method="post">
+        <label for="email">email</label>
+        <input type="email" id="email" name="email">
+        <button>Get Reset Passowrd Link</button>
     </form>
 </body>
 </html>

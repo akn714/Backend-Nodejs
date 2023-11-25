@@ -28,9 +28,9 @@ module.exports.sendMail = async function sendMail(str, data) {
   else if(str=='resetpassword'){
     Osubject = 'Reset Password';
     Ohtml = `
-    <h1>app.com</h1>
-    Here is your link to reset your password:
-    ${data.resetPasswordLink}`
+      <h1>app.com</h1>
+      <p>click <a href='${data.resetPasswordLink}'>here</a> to reset your password</p>
+    `
   }
   // send mail with defined transport object
   const info = await transporter.sendMail({

@@ -3,7 +3,7 @@ const multer = require('multer')
 
 const log = require('../logger')
 const {getUser, getAllUser, deleteUser, updateUser, uploadProfileImage } = require('../controller/userController')
-const { getSignupPage, getLoginPage, signup, login, isAuthorised, protectRoute, logout } = require('../controller/authController')
+const { getSignupPage, getLoginPage, signup, login, isAuthorised, protectRoute, logout, forgetpassword, getResetPasswordPage, resetpassword } = require('../controller/authController')
 const userModel = require('../models/userModel')
 const userRouter = express.Router()
 
@@ -20,11 +20,12 @@ userRouter.route('/login')
 .get(getLoginPage)
 .post(login)
 
-// userRouter.route('/forgetpassword')
-// .post(forgetpassword)
+userRouter.route('/forgetpassword')
+.post(forgetpassword)
 
-// userRouter.route('/resetpassword/:token')
-// .post(resetpassword)
+userRouter.route('/resetpassword/:token')
+.get(getResetPasswordPage)
+.post(resetpassword)
 
 // multer for file upload
 const multerStorage = multer.diskStorage({

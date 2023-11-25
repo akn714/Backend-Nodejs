@@ -29,6 +29,7 @@ module.exports.signup = async function signup(req, res) {
         if (user) {
             let uid = user['_id'];
             let token = jwt.sign({ payload: uid }, JWT_KEY);
+            console.log(uid, token)
             res.cookie('login', token, { maxAge: 24 * 60 * 60 * 1000, secure: true, httpOnly: true });
 
             sendMail("signup", user)
@@ -95,7 +96,8 @@ module.exports.login = async function login(req, res) {
                 // res.cookie('isLoggedIn', true, {maxAge:24*60*60*1000, secure:true, httpOnly:true});
                 let uid = user['_id'];
                 let token = jwt.sign({ payload: uid }, JWT_KEY);
-                res.cookie('login', token, { maxAge: 24 * 60 * 60 * 1000, secure: true, httpOnly: true });
+                console.log(uid, token)
+                res.cookie('login', token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
 
                 return res.json({
                     message: 'User has logged in',
@@ -179,7 +181,7 @@ module.exports.protectRoute = async function protectRoute(req, res, next) {
 
 // logout funcion
 module.exports.logout = function logout(req, res) {
-    res.cookie('login', '', { expires: new Date(0), httpOnly: true, secure: true })
+    res.cookie('login', '', { expires: new Date(0), httpOnly: true })
     res.send({
         message: 'User logged out'
     })
@@ -192,7 +194,7 @@ module.exports.forgetpassword = async function forgetpassword(req, res){
         const user = await userModel.findOne({email:email});
         if(user){
             // createResetToken creates a new token
-            const resetToken = user.createResetToken();
+            const resetToken = await user.createResetToken();
             let resetPasswordLink = `${req.protocol}://${req.get('host')}/user/resetPassword/${resetToken}`
 
             let obj = {
@@ -218,12 +220,29 @@ module.exports.forgetpassword = async function forgetpassword(req, res){
     }
 }
 
+module.exports.getResetPasswordPage = function getResetPasswordPage(req, res){
+    let token = req.params.token;
+    res.send(`
+        <h1>Reset Password</h1>
+        <form action="/user/resetpassword/${token}" method="post">
+            <label for="password">enter new password</label>
+            <input type="password" id="password" name="password">
+            <label for="password">confirm new password</label>
+            <input type="password" id="password" name="confirmPassword">
+            <button>Reset Password</button>
+        </form>
+    `)
+}
+
 // reset password
 module.exports.resetpassword = async function resetpassword(req, res){
     try {
         const token = req.params.token;
         let {password, confirmPassword} = req.body;
+        const _user = await userModel.find({email: 'akumark2004@gmail.com'})
+        console.log(_user)
         const user = await userModel.findOne({resetToken: token});
+        console.log(user)
         if(user){
             // resetPasswordHandler will update user in db
             user.resetPasswordHandler(password, confirmPassword);

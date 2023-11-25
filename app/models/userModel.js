@@ -78,10 +78,11 @@ userSchema.post('save', function(doc){
 // })
 
 // model functions
-userSchema.methods.createResetToken = function(){
+userSchema.methods.createResetToken = async function(){
     // creating unique token using crypto
     const resetToken = crypto.randomBytes(32).toString("hex");
     this.resetToken = resetToken;
+    await this.save()
     return resetToken;
 }
 

@@ -39,6 +39,6 @@ app.use((req, res)=>{
 })
 
 // running the server
-app.listen(3000, ()=>{
+app.listen(3000, '0.0.0.0', ()=>{
     console.log('[+] server listening on port 3000')
 })
