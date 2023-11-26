@@ -247,10 +247,13 @@ YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBe
 * using node mailer
 
 ### lecture  40:
+* <i>not coding</i>
 * CORS: Cross Origin Resource Sharing
 * preflight request
 
 ### lecture 41:
 * Integrating frontend | not done in my code
 
+### lecture 42:
+* Hosting on Heroku
 

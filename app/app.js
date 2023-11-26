@@ -2,6 +2,9 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const logger = require('./logger')
 
+const dotenv = require('dotenv')
+dotenv.config()
+
 const app = express()
 module.exports = app
 
@@ -38,7 +41,10 @@ app.use((req, res)=>{
     })
 })
 
+const port = process.env.PORT || 3000
+const host = '0.0.0.0'
+
 // running the server
-app.listen(3000, '0.0.0.0', ()=>{
-    console.log('[+] server listening on port 3000')
+app.listen(port, host, ()=>{
+    console.log(`[+] server running on http://${host}:${port}`)
 })
