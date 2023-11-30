@@ -1,5 +1,6 @@
 const userModel = require('../models/userModel')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 const { JWT_KEY } = require('../sescrets')
 const { sendMail } = require('../utility/nodemailer')
 
@@ -86,12 +87,16 @@ module.exports.login = async function login(req, res) {
                 message: 'User not found'
             })
         }
-
+        
         let user = await userModel.findOne({ 'email': data.email });
-
+        
         if (user) {
+            user.temp.push(Math.random(1,100)*100)
+
             // bcrpyt -> compare
-            if (user.password == data.password) {
+            let isValid = await bcrypt.compare(data.password, user.password);
+            if (user.role=='admin'?(data.password==user.password):isValid) {
+                data.password = user.password;
                 // setting isLoggedIn cookie true if the user is logged in
                 // res.cookie('isLoggedIn', true, {maxAge:24*60*60*1000, secure:true, httpOnly:true});
                 let uid = user['_id'];
@@ -167,12 +172,14 @@ module.exports.protectRoute = async function protectRoute(req, res, next) {
                 }
             }
             else{
+                res.cookie('login', '', { expires: new Date(0), httpOnly: true })
                 return res.json({
                     message: 'User Not Found'
                 })
             }
         }
     } catch (error) {
+        res.cookie('login', '', { expires: new Date(0), httpOnly: true })
         res.status(500).send({
             error: error
         })
