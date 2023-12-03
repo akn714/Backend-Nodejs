@@ -1,6 +1,6 @@
 const userModel = require('../models/userModel')
 const jwt = require('jsonwebtoken')
-const {JWT_KEY} = require('../sescrets')
+const {JWT_KEY} = require('../secrets')
 
 module.exports.getUser = async function getUser(req, res) {
     let id = req.id;

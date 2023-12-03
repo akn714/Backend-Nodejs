@@ -1,7 +1,7 @@
 const userModel = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const { JWT_KEY } = require('../sescrets')
+const { JWT_KEY } = require('../secrets')
 const { sendMail } = require('../utility/nodemailer')
 
 // get signup page
