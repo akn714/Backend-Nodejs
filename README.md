@@ -1,6 +1,14 @@
 # Backend-Nodejs
 YT Playlist: https://www.youtube.com/playlist?list=PL-Jc9J83PIiEnK1q9tuVrrORqKBexcE_J
 
+## Quick Start
+* clone this project
+* run `cd app`
+* rename `secrets.sample.js` to `secrets.js`
+* add some key to `secrets.js`
+* run `npm install`
+* run this project `node app`
+
 ### Routes
 * `/`, GET : returns 'this is home page'
 * `/user`, GET, POST, PATCH, DELETE : returns all registered users
